@@ -102,4 +102,45 @@ gcloud functions deploy encrypt_decrypt_function \
     --entry-point encrypt_data \
     --region europe-central2 \
     --source .
+gcloud functions describe encrypt_decrypt_function --region europe-central2
+```
+
+#### Create operator service accounts
+```shell
+gcloud iam service-accounts create ca-opallowedusr \
+    --description="Service account for Operator A" \
+    --display-name="Operator A" \
+    --project=optimum-shore-442907-k6
+gcloud iam service-accounts create cb-opallowedusr \
+    --description="Service account for Operator B" \
+    --display-name="Operator B" \
+    --project=optimum-shore-442907-k6
+
+```
+
+#### Create Workload Identity Pools
+```shell
+gcloud iam workload-identity-pools create opwip-a \
+    --project=optimum-shore-442907-k6 \
+    --location="global" \
+    --description="Workload Identity Pool for Operator A" \
+    --display-name="Operator A WIP"
+gcloud iam workload-identity-pools create opwip-b \
+    --project=optimum-shore-442907-k6 \
+    --location="global" \
+    --description="Workload Identity Pool for Operator B" \
+    --display-name="Operator B WIP"
+gcloud iam workload-identity-pools providers create-oidc opwip-a-provider \
+    --workload-identity-pool=opwip-a \
+    --project=optimum-shore-442907-k6 \
+    --location="global" \
+    --issuer-uri="https://accounts.google.com" \
+    --attribute-mapping="google.subject=assertion.sub"
+gcloud iam workload-identity-pools providers create-oidc opwip-b-provider \
+    --workload-identity-pool=opwip-b \
+    --project=optimum-shore-442907-k6 \
+    --location="global" \
+    --issuer-uri="https://accounts.google.com" \
+    --attribute-mapping="google.subject=assertion.sub"
+
 ```

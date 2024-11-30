@@ -34,13 +34,13 @@ model_updater_image   = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/
 task_management_image = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/task_management_image:latest"
 
 # Coordinator Configuration
-allowed_operator_service_accounts = "ca-opallowedusr@dev-env.iam.gserviceaccount.com,cb-opallowedusr@dev-env.iam.gserviceaccount.com"
+allowed_operator_service_accounts = "ca-opallowedusr@optimum-shore-442907-k6.iam.gserviceaccount.com,cb-opallowedusr@optimum-shore-442907-k6.iam.gserviceaccount.com"
 
 encryption_key_service_a_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_a_cloudfunction_url = "https://coordinator-a-xyz.a.run.app"
-wip_provider_a                             = "projects/1234567890/locations/global/workloadIdentityPools/opwip-a/providers/"
+encryption_key_service_a_cloudfunction_url = "https://europe-central2-optimum-shore-442907-k6.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_a                             = "projects/optimum-shore-442907-k6/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"
 service_account_a                          = "shuffler-service-account-a@optimum-shore-442907-k6.iam.gserviceaccount.com"
 encryption_key_service_b_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_b_cloudfunction_url = "https://coordinator-b-xyz.a.run.app"
-wip_provider_b                             = "projects/1234567890/locations/global/workloadIdentityPools/opwip-b/providers/"
+encryption_key_service_b_cloudfunction_url = "https://europe-central2-optimum-shore-442907-k6.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_b                             = "projects/optimum-shore-442907-k6/locations/global/workloadIdentityPools/opwip-b/providers/opwip-b-provider"
 service_account_b                          = "shuffler-service-account-b@optimum-shore-442907-k6.iam.gserviceaccount.com"
