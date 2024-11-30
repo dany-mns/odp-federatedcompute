@@ -36,11 +36,11 @@ task_management_image = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/
 # Coordinator Configuration
 allowed_operator_service_accounts = "ca-opallowedusr@dev-env.iam.gserviceaccount.com,cb-opallowedusr@dev-env.iam.gserviceaccount.com"
 
-encryption_key_service_a_base_url          = "https://coordinator-a.com"
+encryption_key_service_a_base_url          = "https://cloudkms.googleapis.com/v1"
 encryption_key_service_a_cloudfunction_url = "https://coordinator-a-xyz.a.run.app"
 wip_provider_a                             = "projects/1234567890/locations/global/workloadIdentityPools/opwip-a/providers/"
-service_account_a                          = "operator-a@dev-env.iam.gserviceaccount.com"
-encryption_key_service_b_base_url          = "https://coordinator-b.com"
+service_account_a                          = "shuffler-service-account-a@optimum-shore-442907-k6.iam.gserviceaccount.com"
+encryption_key_service_b_base_url          = "https://cloudkms.googleapis.com/v1"
 encryption_key_service_b_cloudfunction_url = "https://coordinator-b-xyz.a.run.app"
 wip_provider_b                             = "projects/1234567890/locations/global/workloadIdentityPools/opwip-b/providers/"
-service_account_b                          = "operator-b@dev-env.iam.gserviceaccount.com"
+service_account_b                          = "shuffler-service-account-b@optimum-shore-442907-k6.iam.gserviceaccount.com"

@@ -27,3 +27,79 @@ This Federated Compute service would be deployed on cloud service(s) which suppo
 
 ## Important: This is a preview release
 This is a preview version of the On-Device Personalization Federated Compute Server and should be used for testing and evaluation purposes. As such, there are not yet any guarantees about forward/backward source compatibility. It is currently not recommended for use in production settings.
+
+
+
+### My work
+
+
+For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
+- I created container artifact registry to store docker containers and modify tfvars to point to them like
+```shell
+    aggregator_image      = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/aggregator_image:latest"
+    model_updater_image   = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/model_updater_image:latest"
+    task_management_image = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/task_management_image:latest"
+```
+
+- Started to create key service with commands
+
+##### Step 1: Enable KMS API
+Enable the Google Cloud KMS API in your project:
+
+```shell
+    gcloud services enable cloudkms.googleapis.com
+```
+
+##### Step 2: Create a Key Ring and Crypto Key
+Create a key ring in the region where your infrastructure is located
+
+```shell
+gcloud kms keyrings create demo-key-ring --location europe-central2
+```
+
+Create a crypto key within the key ring:
+
+```shell
+gcloud kms keys create demo-crypto-key \
+    --location europe-central2 \
+    --keyring demo-key-ring \
+    --purpose encryption
+```
+
+- Create service accounts
+#### 1. Create Service Account A
+```shell
+gcloud iam service-accounts create shuffler-service-account-a \
+    --description="Service account for shuffler operations (A)" \
+    --display-name="Shuffler Service Account A"
+```
+#### 2. Create Service Account B
+```shell
+gcloud iam service-accounts create shuffler-service-account-b \
+    --description="Service account for shuffler operations (B)" \
+    --display-name="Shuffler Service Account B"
+```
+
+##### Grant roles to the Service Accounts
+```shell
+    gcloud projects add-iam-policy-binding optimum-shore-442907-k6 \
+        --member="serviceAccount:shuffler-service-account-a@optimum-shore-442907-k6.iam.gserviceaccount.com" \
+        --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
+
+    gcloud projects add-iam-policy-binding optimum-shore-442907-k6 \
+        --member="serviceAccount:shuffler-service-account-b@optimum-shore-442907-k6.iam.gserviceaccount.com" \
+        --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
+```
+
+#### Deploy cloud function for encrypt/decrypt
+```shell
+gcloud services enable cloudfunctions.googleapis.com --project=optimum-shore-442907-k6
+gcloud services enable cloudbuild.googleapis.com --project=optimum-shore-442907-k6
+gcloud functions deploy encrypt_decrypt_function \
+    --runtime python310 \
+    --trigger-http \
+    --allow-unauthenticated \
+    --entry-point encrypt_data \
+    --region europe-central2 \
+    --source .
+```
