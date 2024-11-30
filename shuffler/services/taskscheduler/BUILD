@@ -72,7 +72,7 @@ oci_push(
     name = "task_scheduler_image_publish",
     image = ":task_scheduler_image",
     remote_tags = ["latest"],
-    repository = "<registry>/<ORG>/task_scheduler_image",
+    repository = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/task_scheduler_image",
 )
 
 # Run a local container with:

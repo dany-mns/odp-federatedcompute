@@ -114,7 +114,7 @@ oci_push(
     name = "task_builder_image_publish",
     image = ":task_builder_image",
     remote_tags = ["latest"],
-    repository = "<registry>/<ORG>/task_builder_image",
+    repository = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/task_builder_image",
 )
 
 # $ bazel run //shuffler/services/taskbuilder:tarball

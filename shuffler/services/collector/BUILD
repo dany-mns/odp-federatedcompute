@@ -43,7 +43,7 @@ oci_push(
     name = "collector_image_publish",
     image = ":collector_image",
     remote_tags = ["latest"],
-    repository = "<registry>/<ORG>/collector_image",
+    repository = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/collector_image",
 )
 
 # Run a local container with:

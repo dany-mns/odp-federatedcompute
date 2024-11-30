@@ -56,4 +56,4 @@ fi
 
 docker build "${docker_build_flags[@]}"  -t odp-federatedcompute-build:v1 .
 # The final parameter passed will be the run with bash. All other parameters will be used as docker run parameters.
-docker run "${docker_run_flags[@]}" "${@:1:$#-1}" "odp-federatedcompute-build:v1" bash -c "${@: -1}"
+docker run "${docker_run_flags[@]}" "odp-federatedcompute-build:v1" bash
