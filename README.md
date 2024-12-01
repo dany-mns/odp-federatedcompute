@@ -130,6 +130,8 @@ gcloud artifacts repositories create odp-fed-compute \
   --repository-format=docker \
   --location=europe-central2
 
+export GOOGLE_APPLICATION_CREDENTIALS=/home/dany/.config/gcloud/application_default_credentials.json
+export GOOGLE_CLOUD_PROJECT=bold-rampart-443413-k3
 ```
 
 ## Questions
@@ -142,13 +144,14 @@ gcloud artifacts repositories create odp-fed-compute \
 
 ## Issues
 
+ - Secret TASK_MANAGEMENT_SERVER_URL is undefined in GCP, how this can be know before?
+
  Error: Error waiting to create Service: Error waiting for Creating Service: Error code 13, message: Revision 'dny998-fqd-task-builder-service-00001-92r' is not ready and cannot serve traffic. spec.template.spec.containers[0].env[0].value_from.secret_key_ref.name: Secret projects/bold-rampart-443413-k3/secrets/fc-dny998-fqd-TASK_MANAGEMENT_SERVER_URL/versions/latest was not found
 
 
- Secret TASK_MANAGEMENT_SERVER_URL is undefined in GCP, how this can be know before?
 
  - For every failure in terraform we receive resource already exists and can't rerun the command
- 
+
  │ Error: Error creating Service: googleapi: Error 409: Resource 'dny998-fqd-task-builder-service' already exists.
 │ 
 │   with module.shuffler.module.task_builder.google_cloud_run_v2_service.taskbuilder,
@@ -157,4 +160,5 @@ gcloud artifacts repositories create odp-fed-compute \
 
 
  ### Status update
- [ ] Build & Deploy services - 1-2 h
+- Build & Deploy services - 1-2 h
+- Terraform apply >= 15 min

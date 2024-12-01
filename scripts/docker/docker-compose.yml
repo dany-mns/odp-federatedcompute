@@ -14,99 +14,99 @@
 
 services:
   aggregator:
-    image: aggregator_image:latest
+    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/aggregator_image:latest
     ports:
     - '8085:8082'
     expose:
     - '8085'
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_APPLICATION_CREDENTIALS: tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       # environment and project_id are used to reference GCP resources such as Spanner, PubSub, and SecretsManager.
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
         --environment 'local'"
       ENCRYPTION_OPTS: "--public_key_service_base_url '<url>'"
     volumes:
-    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+    - ${GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/adc.json:ro
   collector:
-    image: collector_image:latest
+    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/collector_image:latest
     ports:
     - '8084:8082'
     expose:
     - '8084'
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_APPLICATION_CREDENTIALS: tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
       --environment 'local'"
     user: root
     volumes:
-    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+    - ${GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/adc.json:ro
   modelupdater:
-    image: model_updater_image:latest
+    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/model_updater_image:latest
     ports:
     - '8086:8082'
     expose:
     - '8086'
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_APPLICATION_CREDENTIALS: tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
       --environment 'local'"
     volumes:
-    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+    - ${GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/adc.json:ro
   taskassignment:
-    image: task_assignment_image:latest
+    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_assignment_image:latest
     ports:
     - '8083:8083'
     expose:
     - '8083'
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_APPLICATION_CREDENTIALS: tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}'
       --environment 'local'"
     user: root
     volumes:
-    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+    - ${GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/adc.json:ro
   taskmanagement:
-    image: task_management_image:latest
+    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_management_image:latest
     ports:
     - '8082:8082'
     expose:
     - '8082'
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_APPLICATION_CREDENTIALS: tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local'"
     user: root
     volumes:
-    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+    - ${GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/adc.json:ro
   taskscheduler:
-    image: task_scheduler_image:latest
+    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_scheduler_image:latest
     ports:
       - '8087:8082'
     expose:
       - '8087'
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_APPLICATION_CREDENTIALS: tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local'"
     user: root
     volumes:
-    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+    - ${GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/adc.json:ro
   taskbuilder:
-    image: task_builder_image:latest
+    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_builder_image:latest
     expose:
       - '5000'
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_APPLICATION_CREDENTIALS: tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       ENV: "local"
       TASK_MANAGEMENT_SERVER_URL: http://localhost:8082
     user: root
     volumes:
-      - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+      - ${GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/adc.json:ro
     network_mode: host
   nginx:
     image: nginx:latest

@@ -32,7 +32,8 @@ if [[ -z "${GOOGLE_CLOUD_PROJECT}" ]]; then
   exit 1
 fi
 
-./scripts/docker/docker_run.sh "./scripts/docker/load_images.sh"
+# Run directly
+# ./scripts/docker/docker_run.sh "./scripts/docker/load_images.sh"
 
 export COMPOSE_FILE="scripts/docker/docker-compose.yml"
 
