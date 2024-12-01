@@ -124,6 +124,12 @@ gcloud dns managed-zones create gcp-odp-duckdns-org \
   --description="DNS zone for gcp-odp.duckdns.org" \
   --visibility="public"
 
+# Artifact registry
+
+gcloud artifacts repositories create odp-fed-compute \
+  --repository-format=docker \
+  --location=europe-central2
+
 ```
 
 ## Questions
@@ -132,3 +138,23 @@ gcloud dns managed-zones create gcp-odp-duckdns-org \
 - Why we need DNS / DNS Zone?
 - Is ok to use a free service for DNS?
 - Do we need specific certificate / service for certificates?
+
+
+## Issues
+
+ Error: Error waiting to create Service: Error waiting for Creating Service: Error code 13, message: Revision 'dny998-fqd-task-builder-service-00001-92r' is not ready and cannot serve traffic. spec.template.spec.containers[0].env[0].value_from.secret_key_ref.name: Secret projects/bold-rampart-443413-k3/secrets/fc-dny998-fqd-TASK_MANAGEMENT_SERVER_URL/versions/latest was not found
+
+
+ Secret TASK_MANAGEMENT_SERVER_URL is undefined in GCP, how this can be know before?
+
+ - For every failure in terraform we receive resource already exists and can't rerun the command
+ 
+ │ Error: Error creating Service: googleapi: Error 409: Resource 'dny998-fqd-task-builder-service' already exists.
+│ 
+│   with module.shuffler.module.task_builder.google_cloud_run_v2_service.taskbuilder,
+│   on ../../modules/taskbuilder/main.tf line 22, in resource "google_cloud_run_v2_service" "taskbuilder":
+│   22: resource "google_cloud_run_v2_service" "taskbuilder" {
+
+
+ ### Status update
+ [ ] Build & Deploy services - 1-2 h
