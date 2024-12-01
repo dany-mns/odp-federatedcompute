@@ -36,9 +36,9 @@ This is a preview version of the On-Device Personalization Federated Compute Ser
 For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 - I created container artifact registry to store docker containers and modify tfvars to point to them like
 ```shell
-    aggregator_image      = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/aggregator_image:latest"
-    model_updater_image   = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/model_updater_image:latest"
-    task_management_image = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/task_management_image:latest"
+    aggregator_image      = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/aggregator_image:latest"
+    model_updater_image   = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/model_updater_image:latest"
+    task_management_image = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_management_image:latest"
 ```
 
 - Started to create key service with commands
@@ -47,111 +47,84 @@ For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 Enable the Google Cloud KMS API in your project:
 
 ```shell
-    gcloud services enable cloudkms.googleapis.com
-```
-
-##### Step 2: Create a Key Ring and Crypto Key
-Create a key ring in the region where your infrastructure is located
-
-```shell
+# Create a key ring in the region where your infrastructure is located
 gcloud kms keyrings create demo-key-ring --location europe-central2
-```
-
-Create a crypto key within the key ring:
-
-```shell
+# Create a crypto key within the key ring:
 gcloud kms keys create demo-crypto-key \
     --location europe-central2 \
     --keyring demo-key-ring \
     --purpose encryption
-```
 
-- Create service accounts
-#### 1. Create Service Account A
-```shell
+# 1. Create Service Account A
 gcloud iam service-accounts create shuffler-service-account-a \
     --description="Service account for shuffler operations (A)" \
     --display-name="Shuffler Service Account A"
-```
-#### 2. Create Service Account B
-```shell
+# 2. Create Service Account B
 gcloud iam service-accounts create shuffler-service-account-b \
     --description="Service account for shuffler operations (B)" \
     --display-name="Shuffler Service Account B"
-```
 
-##### Grant roles to the Service Accounts
-```shell
-    gcloud projects add-iam-policy-binding kinetic-harbor-443412-f9 \
-        --member="serviceAccount:shuffler-service-account-a@kinetic-harbor-443412-f9.iam.gserviceaccount.com" \
-        --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
+# Grant roles to the Service Accounts
+gcloud projects add-iam-policy-binding bold-rampart-443413-k3 \
+    --member="serviceAccount:shuffler-service-account-a@bold-rampart-443413-k3.iam.gserviceaccount.com" \
+    --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
-    gcloud projects add-iam-policy-binding kinetic-harbor-443412-f9 \
-        --member="serviceAccount:shuffler-service-account-b@kinetic-harbor-443412-f9.iam.gserviceaccount.com" \
-        --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
-```
+# Deploy cloud function for encrypt/decrypt
+gcloud projects add-iam-policy-binding bold-rampart-443413-k3 \
+    --member="serviceAccount:shuffler-service-account-b@bold-rampart-443413-k3.iam.gserviceaccount.com" \
+    --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
-#### Deploy cloud function for encrypt/decrypt
-```shell
 gcloud functions deploy encrypt_decrypt_function \
     --runtime python310 \
     --trigger-http \
     --allow-unauthenticated \
     --entry-point encrypt_data \
     --region europe-central2 \
-    --source .
+    --source ./cloud-function/
 gcloud functions describe encrypt_decrypt_function --region europe-central2
-```
 
-#### Create operator service accounts
-```shell
+# Create operator service accounts
 gcloud iam service-accounts create ca-opallowedusr \
     --description="Service account for Operator A" \
     --display-name="Operator A" \
-    --project=kinetic-harbor-443412-f9
+    --project=bold-rampart-443413-k3
 gcloud iam service-accounts create cb-opallowedusr \
     --description="Service account for Operator B" \
     --display-name="Operator B" \
-    --project=kinetic-harbor-443412-f9
+    --project=bold-rampart-443413-k3
 
-```
-
-#### Create Workload Identity Pools
-```shell
+# Create Workload Identity Pools
 gcloud iam workload-identity-pools create opwip-a \
-    --project=kinetic-harbor-443412-f9 \
+    --project=bold-rampart-443413-k3 \
     --location="global" \
     --description="Workload Identity Pool for Operator A" \
     --display-name="Operator A WIP"
 gcloud iam workload-identity-pools create opwip-b \
-    --project=kinetic-harbor-443412-f9 \
+    --project=bold-rampart-443413-k3 \
     --location="global" \
     --description="Workload Identity Pool for Operator B" \
     --display-name="Operator B WIP"
 gcloud iam workload-identity-pools providers create-oidc opwip-a-provider \
     --workload-identity-pool=opwip-a \
-    --project=kinetic-harbor-443412-f9 \
+    --project=bold-rampart-443413-k3 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
 gcloud iam workload-identity-pools providers create-oidc opwip-b-provider \
     --workload-identity-pool=opwip-b \
-    --project=kinetic-harbor-443412-f9 \
+    --project=bold-rampart-443413-k3 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
 
-```
+# Create zone name
 
-### Grant Permissions to Service Accounts
-```shell
-```
-
-### Create zone name
 gcloud dns managed-zones create gcp-odp-duckdns-org \
   --dns-name="gcp-odp.duckdns.org." \
   --description="DNS zone for gcp-odp.duckdns.org" \
   --visibility="public"
+
+```
 
 ## Questions
 - Do we need to create serice account for cloud functions before terraform plan/apply?

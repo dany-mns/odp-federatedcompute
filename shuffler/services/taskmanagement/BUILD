@@ -43,7 +43,7 @@ oci_push(
     name = "task_management_image_publish",
     image = ":task_management_image",
     remote_tags = ["latest"],
-    repository = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/task_management_image",
+    repository = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_management_image",
 )
 
 # Run a local container with:

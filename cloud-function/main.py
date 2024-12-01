@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 kms_client = kms.KeyManagementServiceClient()
 
-project_id = "kinetic-harbor-443412-f9"
+project_id = "bold-rampart-443413-k3"
 location = "europe-central2"
 key_ring = "demo-key-ring"
 key_name = "demo-crypto-key"

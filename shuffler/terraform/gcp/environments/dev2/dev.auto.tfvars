@@ -18,7 +18,7 @@
 #
 # These values should be modified for each of your environments.
 
-project_id  = "kinetic-harbor-443412-f9"
+project_id  = "bold-rampart-443413-k3"
 environment = "dny998-fqd"
 region      = "europe-central2"
 
@@ -29,18 +29,18 @@ parent_domain_name      = "gcp-odp.duckdns.org"
 spanner_instance_config = "regional-europe-central2"
 
 # Workload Images
-aggregator_image      = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/aggregator_image:latest"
-model_updater_image   = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/model_updater_image:latest"
-task_management_image = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/task_management_image:latest"
+aggregator_image      = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/aggregator_image:latest"
+model_updater_image   = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/model_updater_image:latest"
+task_management_image = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_management_image:latest"
 
 # Coordinator Configuration
-allowed_operator_service_accounts = "ca-opallowedusr@kinetic-harbor-443412-f9.iam.gserviceaccount.com,cb-opallowedusr@kinetic-harbor-443412-f9.iam.gserviceaccount.com"
+allowed_operator_service_accounts = "ca-opallowedusr@bold-rampart-443413-k3.iam.gserviceaccount.com,cb-opallowedusr@bold-rampart-443413-k3.iam.gserviceaccount.com"
 
 encryption_key_service_a_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_a_cloudfunction_url = "https://europe-central2-kinetic-harbor-443412-f9.cloudfunctions.net/encrypt_decrypt_function"
-wip_provider_a                             = "projects/kinetic-harbor-443412-f9/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"
-service_account_a                          = "shuffler-service-account-a@kinetic-harbor-443412-f9.iam.gserviceaccount.com"
+encryption_key_service_a_cloudfunction_url = "https://europe-central2-bold-rampart-443413-k3.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_a                             = "projects/bold-rampart-443413-k3/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"
+service_account_a                          = "shuffler-service-account-a@bold-rampart-443413-k3.iam.gserviceaccount.com"
 encryption_key_service_b_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_b_cloudfunction_url = "https://europe-central2-kinetic-harbor-443412-f9.cloudfunctions.net/encrypt_decrypt_function"
-wip_provider_b                             = "projects/kinetic-harbor-443412-f9/locations/global/workloadIdentityPools/opwip-b/providers/opwip-b-provider"
-service_account_b                          = "shuffler-service-account-b@kinetic-harbor-443412-f9.iam.gserviceaccount.com"
+encryption_key_service_b_cloudfunction_url = "https://europe-central2-bold-rampart-443413-k3.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_b                             = "projects/bold-rampart-443413-k3/locations/global/workloadIdentityPools/opwip-b/providers/opwip-b-provider"
+service_account_b                          = "shuffler-service-account-b@bold-rampart-443413-k3.iam.gserviceaccount.com"

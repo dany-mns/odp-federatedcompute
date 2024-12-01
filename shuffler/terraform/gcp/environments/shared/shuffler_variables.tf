@@ -394,7 +394,7 @@ variable "task_builder_service_account" {
 
 variable "task_builder_image" {
   description = "The task builder container image."
-  default = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/task_builder_image:latest"
+  default = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_builder_image:latest"
   type        = string
 }
 
