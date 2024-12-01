@@ -36,9 +36,9 @@ This is a preview version of the On-Device Personalization Federated Compute Ser
 For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 - I created container artifact registry to store docker containers and modify tfvars to point to them like
 ```shell
-    aggregator_image      = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/aggregator_image:latest"
-    model_updater_image   = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/model_updater_image:latest"
-    task_management_image = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/task_management_image:latest"
+    aggregator_image      = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/aggregator_image:latest"
+    model_updater_image   = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/model_updater_image:latest"
+    task_management_image = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/task_management_image:latest"
 ```
 
 - Started to create key service with commands
@@ -82,19 +82,17 @@ gcloud iam service-accounts create shuffler-service-account-b \
 
 ##### Grant roles to the Service Accounts
 ```shell
-    gcloud projects add-iam-policy-binding optimum-shore-442907-k6 \
-        --member="serviceAccount:shuffler-service-account-a@optimum-shore-442907-k6.iam.gserviceaccount.com" \
+    gcloud projects add-iam-policy-binding kinetic-harbor-443412-f9 \
+        --member="serviceAccount:shuffler-service-account-a@kinetic-harbor-443412-f9.iam.gserviceaccount.com" \
         --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
-    gcloud projects add-iam-policy-binding optimum-shore-442907-k6 \
-        --member="serviceAccount:shuffler-service-account-b@optimum-shore-442907-k6.iam.gserviceaccount.com" \
+    gcloud projects add-iam-policy-binding kinetic-harbor-443412-f9 \
+        --member="serviceAccount:shuffler-service-account-b@kinetic-harbor-443412-f9.iam.gserviceaccount.com" \
         --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 ```
 
 #### Deploy cloud function for encrypt/decrypt
 ```shell
-gcloud services enable cloudfunctions.googleapis.com --project=optimum-shore-442907-k6
-gcloud services enable cloudbuild.googleapis.com --project=optimum-shore-442907-k6
 gcloud functions deploy encrypt_decrypt_function \
     --runtime python310 \
     --trigger-http \
@@ -110,37 +108,54 @@ gcloud functions describe encrypt_decrypt_function --region europe-central2
 gcloud iam service-accounts create ca-opallowedusr \
     --description="Service account for Operator A" \
     --display-name="Operator A" \
-    --project=optimum-shore-442907-k6
+    --project=kinetic-harbor-443412-f9
 gcloud iam service-accounts create cb-opallowedusr \
     --description="Service account for Operator B" \
     --display-name="Operator B" \
-    --project=optimum-shore-442907-k6
+    --project=kinetic-harbor-443412-f9
 
 ```
 
 #### Create Workload Identity Pools
 ```shell
 gcloud iam workload-identity-pools create opwip-a \
-    --project=optimum-shore-442907-k6 \
+    --project=kinetic-harbor-443412-f9 \
     --location="global" \
     --description="Workload Identity Pool for Operator A" \
     --display-name="Operator A WIP"
 gcloud iam workload-identity-pools create opwip-b \
-    --project=optimum-shore-442907-k6 \
+    --project=kinetic-harbor-443412-f9 \
     --location="global" \
     --description="Workload Identity Pool for Operator B" \
     --display-name="Operator B WIP"
 gcloud iam workload-identity-pools providers create-oidc opwip-a-provider \
     --workload-identity-pool=opwip-a \
-    --project=optimum-shore-442907-k6 \
+    --project=kinetic-harbor-443412-f9 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
 gcloud iam workload-identity-pools providers create-oidc opwip-b-provider \
     --workload-identity-pool=opwip-b \
-    --project=optimum-shore-442907-k6 \
+    --project=kinetic-harbor-443412-f9 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
 
 ```
+
+### Grant Permissions to Service Accounts
+```shell
+```
+
+### Create zone name
+gcloud dns managed-zones create gcp-odp-duckdns-org \
+  --dns-name="gcp-odp.duckdns.org." \
+  --description="DNS zone for gcp-odp.duckdns.org" \
+  --visibility="public"
+
+## Questions
+- Do we need to create serice account for cloud functions before terraform plan/apply?
+- Do we need to create manually cloud functions?
+- Why we need DNS / DNS Zone?
+- Is ok to use a free service for DNS?
+- Do we need specific certificate / service for certificates?

@@ -18,29 +18,29 @@
 #
 # These values should be modified for each of your environments.
 
-environment = "demo-env"
-project_id  = "optimum-shore-442907-k6"
+project_id  = "kinetic-harbor-443412-f9"
+environment = "dny998-fqd"
 region      = "europe-central2"
 
 client_gradient_bucket_location = "eu"
 model_bucket_location           = "eu"
 
-parent_domain_name      = "demo-domain-xyz.com"
+parent_domain_name      = "gcp-odp.duckdns.org"
 spanner_instance_config = "regional-europe-central2"
 
 # Workload Images
-aggregator_image      = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/aggregator_image:latest"
-model_updater_image   = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/model_updater_image:latest"
-task_management_image = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/task_management_image:latest"
+aggregator_image      = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/aggregator_image:latest"
+model_updater_image   = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/model_updater_image:latest"
+task_management_image = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/task_management_image:latest"
 
 # Coordinator Configuration
-allowed_operator_service_accounts = "ca-opallowedusr@optimum-shore-442907-k6.iam.gserviceaccount.com,cb-opallowedusr@optimum-shore-442907-k6.iam.gserviceaccount.com"
+allowed_operator_service_accounts = "ca-opallowedusr@kinetic-harbor-443412-f9.iam.gserviceaccount.com,cb-opallowedusr@kinetic-harbor-443412-f9.iam.gserviceaccount.com"
 
 encryption_key_service_a_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_a_cloudfunction_url = "https://europe-central2-optimum-shore-442907-k6.cloudfunctions.net/encrypt_decrypt_function"
-wip_provider_a                             = "projects/optimum-shore-442907-k6/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"
-service_account_a                          = "shuffler-service-account-a@optimum-shore-442907-k6.iam.gserviceaccount.com"
+encryption_key_service_a_cloudfunction_url = "https://europe-central2-kinetic-harbor-443412-f9.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_a                             = "projects/kinetic-harbor-443412-f9/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"
+service_account_a                          = "shuffler-service-account-a@kinetic-harbor-443412-f9.iam.gserviceaccount.com"
 encryption_key_service_b_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_b_cloudfunction_url = "https://europe-central2-optimum-shore-442907-k6.cloudfunctions.net/encrypt_decrypt_function"
-wip_provider_b                             = "projects/optimum-shore-442907-k6/locations/global/workloadIdentityPools/opwip-b/providers/opwip-b-provider"
-service_account_b                          = "shuffler-service-account-b@optimum-shore-442907-k6.iam.gserviceaccount.com"
+encryption_key_service_b_cloudfunction_url = "https://europe-central2-kinetic-harbor-443412-f9.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_b                             = "projects/kinetic-harbor-443412-f9/locations/global/workloadIdentityPools/opwip-b/providers/opwip-b-provider"
+service_account_b                          = "shuffler-service-account-b@kinetic-harbor-443412-f9.iam.gserviceaccount.com"

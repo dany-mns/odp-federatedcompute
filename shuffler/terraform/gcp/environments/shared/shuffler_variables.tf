@@ -75,7 +75,7 @@ variable "cluster_deletion_protection" {
 variable "model_bucket_force_destroy" {
   description = "Whether to force destroy the bucket even if it is not empty."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "model_bucket_versioning" {
@@ -394,6 +394,7 @@ variable "task_builder_service_account" {
 
 variable "task_builder_image" {
   description = "The task builder container image."
+  default = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/task_builder_image:latest"
   type        = string
 }
 

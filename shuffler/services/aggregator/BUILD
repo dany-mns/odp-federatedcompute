@@ -81,7 +81,7 @@ oci_push(
     name = "aggregator_image_publish",
     image = ":aggregator_image",
     remote_tags = ["latest"],
-    repository = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/aggregator_image",
+    repository = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/aggregator_image",
 )
 
 # Run a local container with:

@@ -80,7 +80,7 @@ oci_push(
     name = "model_updater_image_publish",
     image = ":model_updater_image",
     remote_tags = ["latest"],
-    repository = "europe-central2-docker.pkg.dev/optimum-shore-442907-k6/odp-fed-compute/model_updater_image",
+    repository = "europe-central2-docker.pkg.dev/kinetic-harbor-443412-f9/odp-fed-compute/model_updater_image",
 )
 
 # Run a local container with:

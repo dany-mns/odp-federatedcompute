@@ -27,7 +27,10 @@ gcloud services enable \
     secretmanager.googleapis.com \
     apigateway.googleapis.com \
     servicemanagement.googleapis.com \
-    servicecontrol.googleapis.com
+    servicecontrol.googleapis.com \
+    cloudkms.googleapis.com \
+    cloudfunctions.googleapis.com \
+    cloudbuild.googleapis.com 
  ```
 4. Setup a managed public zone using Cloud DNS for your domain. The name of the zone should match the domain name with `-`'s replacing any `.` in the name. The terraform will use the DNS Zone for the domain for the external load balancer's IP.
    - https://cloud.google.com/dns/docs/set-up-dns-records-domain-name

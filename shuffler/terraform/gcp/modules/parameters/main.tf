@@ -19,6 +19,10 @@ resource "google_secret_manager_secret" "worker_parameter" {
   replication {
     auto {}
   }
+  lifecycle { # Error creating Secret: googleapi: Error 409: Secret [projects/1085946559340/secrets/fc-demo-env-ENCRYPTION_KEY_SERVICE_B_CLOUDFUNCTION_URL] already exists.
+    create_before_destroy = true
+    ignore_changes = [replication]
+  }
 }
 
 resource "google_secret_manager_secret_version" "worker_parameter_value" {

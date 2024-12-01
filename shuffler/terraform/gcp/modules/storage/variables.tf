@@ -36,6 +36,7 @@ variable "region" {
 variable "model_bucket_force_destroy" {
   description = "Whether to force destroy the bucket even if it is not empty."
   type        = bool
+  default = true
   nullable    = false
 }
 
