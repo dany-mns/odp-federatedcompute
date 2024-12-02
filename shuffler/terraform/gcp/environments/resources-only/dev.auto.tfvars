@@ -19,7 +19,7 @@
 # These values should be modified for each of your environments.
 
 project_id  = "earnest-keep-443512-e1"
-environment = "dny998-fqd"
+environment = "dny70"
 region      = "europe-west2"
 
 client_gradient_bucket_location = "eu"

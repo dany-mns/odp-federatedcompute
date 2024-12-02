@@ -164,3 +164,19 @@ export GOOGLE_CLOUD_PROJECT=earnest-keep-443512-e1
  ### Status update
 - Build & Deploy services - 1-2 h
 - Terraform apply >= 15 min
+
+
+
+### Resource only output
+Outputs:
+
+aggregated_gradient_bucket_name = "fcp-dny70-a-0"
+aggregator_subscription_name = "aggregator-dny70-subscription"
+aggregator_topic_name = "aggregator-dny70-topic"
+client_gradient_bucket_name = "fcp-dny70-g-0"
+model_bucket_name = "fcp-dny70-m-0"
+model_updater_subscription_name = "model-updater-dny70-subscription"
+model_updater_topic_name = "model-updater-dny70-topic"
+spanner_database_name = "fcp-task-db-dny70"
+spanner_instance_name = "fcp-task-dny70"
+spanner_lock_database_name = "fcp-lock-db-dny70"
