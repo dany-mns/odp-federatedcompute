@@ -132,7 +132,7 @@ gcloud artifacts repositories create odp-fed-compute \
   --repository-format=docker \
   --location=europe-west2
 
-export GOOGLE_APPLICATION_CREDENTIALS=/home/dany/.config/gcloud/application_default_credentials.json
+export GOOGLE_APPLICATION_CREDENTIALS=/home/danym/.config/gcloud/application_default_credentials.json
 export GOOGLE_CLOUD_PROJECT=earnest-keep-443512-e1
 ```
 

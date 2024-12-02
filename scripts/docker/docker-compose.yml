@@ -23,7 +23,7 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       # environment and project_id are used to reference GCP resources such as Spanner, PubSub, and SecretsManager.
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --spanner_instance 'fcp-task-dny70' 
         --environment 'local'"
       ENCRYPTION_OPTS: "--public_key_service_base_url '<url>'"
     volumes:
@@ -37,8 +37,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
-      --environment 'local'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --spanner_instance 'fcp-task-dny70' --environment 'local'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
@@ -51,8 +50,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
-      --environment 'local'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --spanner_instance 'fcp-task-dny70' --environment 'local'"
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskassignment:
@@ -64,8 +62,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}'
-      --environment 'local'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT} --spanner_instance 'fcp-task-dny70'' --environment 'local'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
@@ -78,7 +75,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local' --spanner_instance 'fcp-task-dny70'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
@@ -91,7 +88,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local' --spanner_instance 'fcp-task-dny70'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
