@@ -46,6 +46,7 @@ variable "cluster_service_account" {
 variable "cluster_deletion_protection" {
   description = "Whether or not to allow Terraform to destroy the cluster."
   type        = bool
+  default = false
 }
 
 # Service input variables

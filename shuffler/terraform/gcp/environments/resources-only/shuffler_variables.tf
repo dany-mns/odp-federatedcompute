@@ -99,7 +99,7 @@ variable "metric_spanner_processing_units" {
 variable "spanner_database_deletion_protection" {
   description = "Prevents destruction of the Spanner database."
   type        = bool
-  default     = true
+  default     = false
 }
 
 # Service input variables

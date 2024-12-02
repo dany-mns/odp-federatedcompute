@@ -72,7 +72,7 @@ oci_push(
     name = "task_scheduler_image_publish",
     image = ":task_scheduler_image",
     remote_tags = ["latest"],
-    repository = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_scheduler_image",
+    repository = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_scheduler_image",
 )
 
 # Run a local container with:

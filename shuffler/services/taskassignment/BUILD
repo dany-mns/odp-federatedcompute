@@ -43,7 +43,7 @@ oci_push(
     name = "task_assignment_image_publish",
     image = ":task_assignment_image",
     remote_tags = ["latest"],
-    repository = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_assignment_image",
+    repository = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_assignment_image",
 )
 
 # Run a local container with:

@@ -36,9 +36,9 @@ This is a preview version of the On-Device Personalization Federated Compute Ser
 For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 - I created container artifact registry to store docker containers and modify tfvars to point to them like
 ```shell
-    aggregator_image      = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/aggregator_image:latest"
-    model_updater_image   = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/model_updater_image:latest"
-    task_management_image = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_management_image:latest"
+    aggregator_image      = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest"
+    model_updater_image   = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest"
+    task_management_image = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest"
 ```
 
 - Started to create key service with commands
@@ -47,11 +47,12 @@ For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 Enable the Google Cloud KMS API in your project:
 
 ```shell
+gcloud config set project earnest-keep-443512-e1
 # Create a key ring in the region where your infrastructure is located
-gcloud kms keyrings create demo-key-ring --location europe-central2
+gcloud kms keyrings create demo-key-ring --location europe-west2
 # Create a crypto key within the key ring:
 gcloud kms keys create demo-crypto-key \
-    --location europe-central2 \
+    --location europe-west2 \
     --keyring demo-key-ring \
     --purpose encryption
 
@@ -65,13 +66,13 @@ gcloud iam service-accounts create shuffler-service-account-b \
     --display-name="Shuffler Service Account B"
 
 # Grant roles to the Service Accounts
-gcloud projects add-iam-policy-binding bold-rampart-443413-k3 \
-    --member="serviceAccount:shuffler-service-account-a@bold-rampart-443413-k3.iam.gserviceaccount.com" \
+gcloud projects add-iam-policy-binding earnest-keep-443512-e1 \
+    --member="serviceAccount:shuffler-service-account-a@earnest-keep-443512-e1.iam.gserviceaccount.com" \
     --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
 # Deploy cloud function for encrypt/decrypt
-gcloud projects add-iam-policy-binding bold-rampart-443413-k3 \
-    --member="serviceAccount:shuffler-service-account-b@bold-rampart-443413-k3.iam.gserviceaccount.com" \
+gcloud projects add-iam-policy-binding earnest-keep-443512-e1 \
+    --member="serviceAccount:shuffler-service-account-b@earnest-keep-443512-e1.iam.gserviceaccount.com" \
     --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
 gcloud functions deploy encrypt_decrypt_function \
@@ -79,40 +80,40 @@ gcloud functions deploy encrypt_decrypt_function \
     --trigger-http \
     --allow-unauthenticated \
     --entry-point encrypt_data \
-    --region europe-central2 \
+    --region europe-west2 \
     --source ./cloud-function/
-gcloud functions describe encrypt_decrypt_function --region europe-central2
+gcloud functions describe encrypt_decrypt_function --region europe-west2
 
 # Create operator service accounts
 gcloud iam service-accounts create ca-opallowedusr \
     --description="Service account for Operator A" \
     --display-name="Operator A" \
-    --project=bold-rampart-443413-k3
+    --project=earnest-keep-443512-e1
 gcloud iam service-accounts create cb-opallowedusr \
     --description="Service account for Operator B" \
     --display-name="Operator B" \
-    --project=bold-rampart-443413-k3
+    --project=earnest-keep-443512-e1
 
 # Create Workload Identity Pools
 gcloud iam workload-identity-pools create opwip-a \
-    --project=bold-rampart-443413-k3 \
+    --project=earnest-keep-443512-e1 \
     --location="global" \
     --description="Workload Identity Pool for Operator A" \
     --display-name="Operator A WIP"
 gcloud iam workload-identity-pools create opwip-b \
-    --project=bold-rampart-443413-k3 \
+    --project=earnest-keep-443512-e1 \
     --location="global" \
     --description="Workload Identity Pool for Operator B" \
     --display-name="Operator B WIP"
 gcloud iam workload-identity-pools providers create-oidc opwip-a-provider \
     --workload-identity-pool=opwip-a \
-    --project=bold-rampart-443413-k3 \
+    --project=earnest-keep-443512-e1 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
 gcloud iam workload-identity-pools providers create-oidc opwip-b-provider \
     --workload-identity-pool=opwip-b \
-    --project=bold-rampart-443413-k3 \
+    --project=earnest-keep-443512-e1 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
@@ -126,12 +127,13 @@ gcloud dns managed-zones create gcp-odp-duckdns-org \
 
 # Artifact registry
 
+gcloud auth configure-docker europe-west2-docker.pkg.dev
 gcloud artifacts repositories create odp-fed-compute \
   --repository-format=docker \
-  --location=europe-central2
+  --location=europe-west2
 
 export GOOGLE_APPLICATION_CREDENTIALS=/home/dany/.config/gcloud/application_default_credentials.json
-export GOOGLE_CLOUD_PROJECT=bold-rampart-443413-k3
+export GOOGLE_CLOUD_PROJECT=earnest-keep-443512-e1
 ```
 
 ## Questions
@@ -146,7 +148,7 @@ export GOOGLE_CLOUD_PROJECT=bold-rampart-443413-k3
 
  - Secret TASK_MANAGEMENT_SERVER_URL is undefined in GCP, how this can be know before?
 
- Error: Error waiting to create Service: Error waiting for Creating Service: Error code 13, message: Revision 'dny998-fqd-task-builder-service-00001-92r' is not ready and cannot serve traffic. spec.template.spec.containers[0].env[0].value_from.secret_key_ref.name: Secret projects/bold-rampart-443413-k3/secrets/fc-dny998-fqd-TASK_MANAGEMENT_SERVER_URL/versions/latest was not found
+ Error: Error waiting to create Service: Error waiting for Creating Service: Error code 13, message: Revision 'dny998-fqd-task-builder-service-00001-92r' is not ready and cannot serve traffic. spec.template.spec.containers[0].env[0].value_from.secret_key_ref.name: Secret projects/earnest-keep-443512-e1/secrets/fc-dny998-fqd-TASK_MANAGEMENT_SERVER_URL/versions/latest was not found
 
 
 

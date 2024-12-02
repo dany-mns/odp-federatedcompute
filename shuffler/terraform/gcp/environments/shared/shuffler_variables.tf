@@ -69,7 +69,7 @@ variable "cluster_service_account" {
 variable "cluster_deletion_protection" {
   description = "Whether or not to allow Terraform to destroy the cluster."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "model_bucket_force_destroy" {
@@ -166,7 +166,7 @@ variable "metric_spanner_processing_units" {
 variable "spanner_database_deletion_protection" {
   description = "Prevents destruction of the Spanner database."
   type        = bool
-  default     = true
+  default     = false
 }
 
 # Service input variables
@@ -394,7 +394,7 @@ variable "task_builder_service_account" {
 
 variable "task_builder_image" {
   description = "The task builder container image."
-  default = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_builder_image:latest"
+  default = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_builder_image:latest"
   type        = string
 }
 

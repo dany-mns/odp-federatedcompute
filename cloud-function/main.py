@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 kms_client = kms.KeyManagementServiceClient()
 
-project_id = "bold-rampart-443413-k3"
-location = "europe-central2"
+project_id = "earnest-keep-443512-e1"
+location = "europe-west2"
 key_ring = "demo-key-ring"
 key_name = "demo-crypto-key"
 KEY_RING = f'projects/{project_id}/locations/{location}/keyRings/{key_ring}'

@@ -28,14 +28,6 @@ model_bucket_location           = "eu"
 parent_domain_name      = "gcp-odp.duckdns.org"
 spanner_instance_config = "regional-europe-west2"
 
-# Workload Images
-aggregator_image      = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest"
-model_updater_image   = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest"
-task_management_image = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest"
-
-# Coordinator Configuration
-allowed_operator_service_accounts = "ca-opallowedusr@earnest-keep-443512-e1.iam.gserviceaccount.com,cb-opallowedusr@earnest-keep-443512-e1.iam.gserviceaccount.com"
-
 encryption_key_service_a_base_url          = "https://cloudkms.googleapis.com/v1"
 encryption_key_service_a_cloudfunction_url = "https://europe-west2-earnest-keep-443512-e1.cloudfunctions.net/encrypt_decrypt_function"
 wip_provider_a                             = "projects/earnest-keep-443512-e1/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"

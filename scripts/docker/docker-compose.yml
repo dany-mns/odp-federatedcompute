@@ -14,7 +14,7 @@
 
 services:
   aggregator:
-    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/aggregator_image:latest
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest
     ports:
     - '8085:8082'
     expose:
@@ -29,7 +29,7 @@ services:
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   collector:
-    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/collector_image:latest
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/collector_image:latest
     ports:
     - '8084:8082'
     expose:
@@ -43,7 +43,7 @@ services:
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   modelupdater:
-    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/model_updater_image:latest
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest
     ports:
     - '8086:8082'
     expose:
@@ -56,7 +56,7 @@ services:
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskassignment:
-    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_assignment_image:latest
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_assignment_image:latest
     ports:
     - '8083:8083'
     expose:
@@ -70,7 +70,7 @@ services:
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskmanagement:
-    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_management_image:latest
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest
     ports:
     - '8082:8082'
     expose:
@@ -83,7 +83,7 @@ services:
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskscheduler:
-    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_scheduler_image:latest
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_scheduler_image:latest
     ports:
       - '8087:8082'
     expose:
@@ -96,7 +96,7 @@ services:
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskbuilder:
-    image: europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/task_builder_image:latest
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_builder_image:latest
     expose:
       - '5000'
     environment:

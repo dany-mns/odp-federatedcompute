@@ -80,7 +80,7 @@ oci_push(
     name = "model_updater_image_publish",
     image = ":model_updater_image",
     remote_tags = ["latest"],
-    repository = "europe-central2-docker.pkg.dev/bold-rampart-443413-k3/odp-fed-compute/model_updater_image",
+    repository = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image",
 )
 
 # Run a local container with:
