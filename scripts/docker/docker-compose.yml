@@ -13,20 +13,21 @@
 # limitations under the License.
 
 services:
-  # aggregator:
-  #   image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest
-  #   ports:
-  #   - '8085:8082'
-  #   expose:
-  #   - '8085'
-  #   environment:
-  #     GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
-  #     GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-  #     # environment and project_id are used to reference GCP resources such as Spanner, PubSub, and SecretsManager.
-  #     FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --aggregator_pubsub_subscription 'aggregator-dny70-subscription' --encryption_key_service_a_cloudfunction_url 'https://encrypt-decrypt-function-1097763444010.europe-west2.run.app' --encryption_key_service_b_cloudfunction_url 'https://encrypt-decrypt-function-1097763444010.europe-west2.run.app' --encryption_key_service_a_base_url 'https://cloudkms.googleapis.com/v1' --encryption_key_service_b_base_url 'https://cloudkms.googleapis.com/v1' --spanner_instance --wip_provider_b 'opwip-b' --service_account_b 'cb-opallowedusr@earnest-keep-443512-e1.iam.gserviceaccount.com' --wip_provider_a 'opwip-a' --service_account_a 'ca-opallowedusr@earnest-keep-443512-e1.iam.gserviceaccount.com' 'fcp-task-dny70' --model_cdn_signing_key_name 'dny70-signed-url-key-a' --client_gradient_bucket_template 'fcp-dny70-g-0' --download_plan_token_duration 900 --model_bucket_template 'fcp-dny70-m-0' --aggregated_gradient_bucket_template 'fcp-dny70-a-0' --aggregator_pubsub_topic 'aggregator-dny70-topic' --metrics_database_name 'fcp-metric-db-dny70' --metrics_spanner_instance 'fcp-metric-dny70' --task_database_name 'fcp-task-db-dny70' --environment 'local'"
-  #     ENCRYPTION_OPTS: "--public_key_service_base_url '<url>'"
-  #   volumes:
-  #   - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+  aggregator:
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest
+    ports:
+    - '8085:8082'
+    expose:
+    - '8085'
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
+      # environment and project_id are used to reference GCP resources such as Spanner, PubSub, and SecretsManager.
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
+        --environment 'dny70'"
+      ENCRYPTION_OPTS: "--public_key_service_base_url '<url>'"
+    volumes:
+    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   collector:
     image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/collector_image:latest
     ports:
@@ -36,74 +37,77 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --aggregator_notification_pubsub_subscription 'aggregator-dny70-subscription' --model_updater_pubsub_topic 'model-updater-dny70-topic' --aggregator_notification_pubsub_topic 'aggregator-dny70-topic' --spanner_instance 'fcp-task-dny70' --model_cdn_signing_key_name 'dny70-signed-url-key-a' --client_gradient_bucket_template 'fcp-dny70-g-0' --download_plan_token_duration 900 --model_bucket_template 'fcp-dny70-m-0' --aggregated_gradient_bucket_template 'fcp-dny70-a-0' --aggregator_pubsub_topic 'aggregator-dny70-topic' --metrics_database_name 'fcp-metric-db-dny70' --metrics_spanner_instance 'fcp-metric-dny70' --task_database_name 'fcp-task-db-dny70' --environment 'local'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
+      --environment 'dny70'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
-  # modelupdater:
-  #   image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest
-  #   ports:
-  #   - '8086:8082'
-  #   expose:
-  #   - '8086'
-  #   environment:
-  #     GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
-  #     GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-  #     FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --spanner_instance 'fcp-task-dny70' --model_cdn_signing_key_name 'dny70-signed-url-key-a' --client_gradient_bucket_template 'fcp-dny70-g-0' --download_plan_token_duration 900 --model_bucket_template 'fcp-dny70-m-0' --aggregated_gradient_bucket_template 'fcp-dny70-a-0' --aggregator_pubsub_topic 'aggregator-dny70-topic' --metrics_database_name 'fcp-metric-db-dny70' --metrics_spanner_instance 'fcp-metric-dny70' --task_database_name 'fcp-task-db-dny70' --environment 'local'"
-  #   volumes:
-  #   - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
-  # taskassignment:
-  #   image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_assignment_image:latest
-  #   ports:
-  #   - '8083:8083'
-  #   expose:
-  #   - '8083'
-  #   environment:
-  #     GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
-  #     GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-  #     FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --spanner_instance 'fcp-task-dny70' --model_cdn_signing_key_name 'dny70-signed-url-key-a' --client_gradient_bucket_template 'fcp-dny70-g-0' --download_plan_token_duration 900 --model_bucket_template 'fcp-dny70-m-0' --aggregated_gradient_bucket_template 'fcp-dny70-a-0' --aggregator_pubsub_topic 'aggregator-dny70-topic' --metrics_database_name 'fcp-metric-db-dny70' --metrics_spanner_instance 'fcp-metric-dny70' --task_database_name 'fcp-task-db-dny70' --environment 'local'"
-  #   user: root
-  #   volumes:
-  #   - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
-  # taskmanagement:
-  #   image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest
-  #   ports:
-  #   - '8082:8082'
-  #   expose:
-  #   - '8082'
-  #   environment:
-  #     GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
-  #     GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-  #     FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local' --spanner_instance 'fcp-task-dny70' --model_cdn_signing_key_name 'dny70-signed-url-key-a' --client_gradient_bucket_template 'fcp-dny70-g-0' --download_plan_token_duration 900 --model_bucket_template 'fcp-dny70-m-0' --aggregated_gradient_bucket_template 'fcp-dny70-a-0' --aggregator_pubsub_topic 'aggregator-dny70-topic' --metrics_database_name 'fcp-metric-db-dny70' --metrics_spanner_instance 'fcp-metric-dny70' --task_database_name 'fcp-task-db-dny70'"
-  #   user: root
-  #   volumes:
-  #   - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
-  # taskscheduler:
-  #   image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_scheduler_image:latest
-  #   ports:
-  #     - '8087:8082'
-  #   expose:
-  #     - '8087'
-  #   environment:
-  #     GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
-  #     GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-  #     FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'local' --spanner_instance 'fcp-task-dny70' --model_cdn_signing_key_name 'dny70-signed-url-key-a' --client_gradient_bucket_template 'fcp-dny70-g-0' --download_plan_token_duration 900 --model_bucket_template 'fcp-dny70-m-0' --aggregated_gradient_bucket_template 'fcp-dny70-a-0' --aggregator_pubsub_topic 'aggregator-dny70-topic' --metrics_database_name 'fcp-metric-db-dny70' --metrics_spanner_instance 'fcp-metric-dny70' --task_database_name 'fcp-task-db-dny70'"
-  #   user: root
-  #   volumes:
-  #   - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
-  # taskbuilder:
-  #   image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_builder_image:latest
-  #   expose:
-  #     - '5000'
-  #   environment:
-  #     GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
-  #     GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-  #     ENV: "local"
-  #     TASK_MANAGEMENT_SERVER_URL: http://localhost:8082
-  #   user: root
-  #   volumes:
-  #     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
-  #   network_mode: host
+  modelupdater:
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest
+    ports:
+    - '8086:8082'
+    expose:
+    - '8086'
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
+      --environment 'dny70'"
+    volumes:
+    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+  taskassignment:
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_assignment_image:latest
+    ports:
+    - '8083:8083'
+    expose:
+    - '8083'
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}'
+      --environment 'dny70'"
+    user: root
+    volumes:
+    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+  taskmanagement:
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest
+    ports:
+    - '8082:8082'
+    expose:
+    - '8082'
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'dny70'"
+    user: root
+    volumes:
+    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+  taskscheduler:
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_scheduler_image:latest
+    ports:
+      - '8087:8082'
+    expose:
+      - '8087'
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'dny70'"
+    user: root
+    volumes:
+    - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+  taskbuilder:
+    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_builder_image:latest
+    expose:
+      - '5000'
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
+      ENV: "local"
+      TASK_MANAGEMENT_SERVER_URL: http://localhost:8082
+    user: root
+    volumes:
+      - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
+    network_mode: host
   nginx:
     image: nginx:latest
     container_name: nginx_proxy
