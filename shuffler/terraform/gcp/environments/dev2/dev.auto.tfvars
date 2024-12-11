@@ -18,7 +18,7 @@
 #
 # These values should be modified for each of your environments.
 
-project_id  = "earnest-keep-443512-e1"
+project_id  = "vital-cathode-444415-s3"
 environment = "dny998-fqd"
 region      = "europe-west2"
 
@@ -29,18 +29,18 @@ parent_domain_name      = "gcp-odp.duckdns.org"
 spanner_instance_config = "regional-europe-west2"
 
 # Workload Images
-aggregator_image      = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest"
-model_updater_image   = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest"
-task_management_image = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest"
+aggregator_image      = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/aggregator_image:latest"
+model_updater_image   = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/model_updater_image:latest"
+task_management_image = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_management_image:latest"
 
 # Coordinator Configuration
-allowed_operator_service_accounts = "ca-opallowedusr@earnest-keep-443512-e1.iam.gserviceaccount.com,cb-opallowedusr@earnest-keep-443512-e1.iam.gserviceaccount.com"
+allowed_operator_service_accounts = "ca-opallowedusr@vital-cathode-444415-s3.iam.gserviceaccount.com,cb-opallowedusr@vital-cathode-444415-s3.iam.gserviceaccount.com"
 
 encryption_key_service_a_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_a_cloudfunction_url = "https://europe-west2-earnest-keep-443512-e1.cloudfunctions.net/encrypt_decrypt_function"
-wip_provider_a                             = "projects/earnest-keep-443512-e1/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"
-service_account_a                          = "shuffler-service-account-a@earnest-keep-443512-e1.iam.gserviceaccount.com"
+encryption_key_service_a_cloudfunction_url = "https://europe-west2-vital-cathode-444415-s3.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_a                             = "projects/vital-cathode-444415-s3/locations/global/workloadIdentityPools/opwip-a/providers/opwip-a-provider"
+service_account_a                          = "shuffler-service-account-a@vital-cathode-444415-s3.iam.gserviceaccount.com"
 encryption_key_service_b_base_url          = "https://cloudkms.googleapis.com/v1"
-encryption_key_service_b_cloudfunction_url = "https://europe-west2-earnest-keep-443512-e1.cloudfunctions.net/encrypt_decrypt_function"
-wip_provider_b                             = "projects/earnest-keep-443512-e1/locations/global/workloadIdentityPools/opwip-b/providers/opwip-b-provider"
-service_account_b                          = "shuffler-service-account-b@earnest-keep-443512-e1.iam.gserviceaccount.com"
+encryption_key_service_b_cloudfunction_url = "https://europe-west2-vital-cathode-444415-s3.cloudfunctions.net/encrypt_decrypt_function"
+wip_provider_b                             = "projects/vital-cathode-444415-s3/locations/global/workloadIdentityPools/opwip-b/providers/opwip-b-provider"
+service_account_b                          = "shuffler-service-account-b@vital-cathode-444415-s3.iam.gserviceaccount.com"

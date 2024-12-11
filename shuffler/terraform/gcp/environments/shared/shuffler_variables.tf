@@ -394,7 +394,7 @@ variable "task_builder_service_account" {
 
 variable "task_builder_image" {
   description = "The task builder container image."
-  default = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_builder_image:latest"
+  default = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_builder_image:latest"
   type        = string
 }
 

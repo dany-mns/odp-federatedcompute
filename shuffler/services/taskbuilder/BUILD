@@ -114,8 +114,8 @@ oci_push(
     name = "task_builder_image_publish",
     image = ":task_builder_image",
     remote_tags = ["latest"],
-    repository = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_builder_image",
-    # europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute
+    repository = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_builder_image",
+    # europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute
 )
 
 # $ bazel run //shuffler/services/taskbuilder:tarball

@@ -43,7 +43,7 @@ oci_push(
     name = "collector_image_publish",
     image = ":collector_image",
     remote_tags = ["latest"],
-    repository = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/collector_image",
+    repository = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/collector_image",
 )
 
 # Run a local container with:

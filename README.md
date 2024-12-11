@@ -36,9 +36,9 @@ This is a preview version of the On-Device Personalization Federated Compute Ser
 For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 - I created container artifact registry to store docker containers and modify tfvars to point to them like
 ```shell
-    aggregator_image      = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest"
-    model_updater_image   = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest"
-    task_management_image = "europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest"
+    aggregator_image      = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/aggregator_image:latest"
+    model_updater_image   = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/model_updater_image:latest"
+    task_management_image = "europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_management_image:latest"
 ```
 
 - Started to create key service with commands
@@ -47,7 +47,7 @@ For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 Enable the Google Cloud KMS API in your project:
 
 ```shell
-gcloud config set project earnest-keep-443512-e1
+gcloud config set project vital-cathode-444415-s3
 # Create a key ring in the region where your infrastructure is located
 gcloud kms keyrings create demo-key-ring --location europe-west2
 # Create a crypto key within the key ring:
@@ -66,13 +66,13 @@ gcloud iam service-accounts create shuffler-service-account-b \
     --display-name="Shuffler Service Account B"
 
 # Grant roles to the Service Accounts
-gcloud projects add-iam-policy-binding earnest-keep-443512-e1 \
-    --member="serviceAccount:shuffler-service-account-a@earnest-keep-443512-e1.iam.gserviceaccount.com" \
+gcloud projects add-iam-policy-binding vital-cathode-444415-s3 \
+    --member="serviceAccount:shuffler-service-account-a@vital-cathode-444415-s3.iam.gserviceaccount.com" \
     --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
 # Deploy cloud function for encrypt/decrypt
-gcloud projects add-iam-policy-binding earnest-keep-443512-e1 \
-    --member="serviceAccount:shuffler-service-account-b@earnest-keep-443512-e1.iam.gserviceaccount.com" \
+gcloud projects add-iam-policy-binding vital-cathode-444415-s3 \
+    --member="serviceAccount:shuffler-service-account-b@vital-cathode-444415-s3.iam.gserviceaccount.com" \
     --role="roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
 gcloud functions deploy encrypt_decrypt_function \
@@ -88,32 +88,32 @@ gcloud functions describe encrypt_decrypt_function --region europe-west2
 gcloud iam service-accounts create ca-opallowedusr \
     --description="Service account for Operator A" \
     --display-name="Operator A" \
-    --project=earnest-keep-443512-e1
+    --project=vital-cathode-444415-s3
 gcloud iam service-accounts create cb-opallowedusr \
     --description="Service account for Operator B" \
     --display-name="Operator B" \
-    --project=earnest-keep-443512-e1
+    --project=vital-cathode-444415-s3
 
 # Create Workload Identity Pools
 gcloud iam workload-identity-pools create opwip-a \
-    --project=earnest-keep-443512-e1 \
+    --project=vital-cathode-444415-s3 \
     --location="global" \
     --description="Workload Identity Pool for Operator A" \
     --display-name="Operator A WIP"
 gcloud iam workload-identity-pools create opwip-b \
-    --project=earnest-keep-443512-e1 \
+    --project=vital-cathode-444415-s3 \
     --location="global" \
     --description="Workload Identity Pool for Operator B" \
     --display-name="Operator B WIP"
 gcloud iam workload-identity-pools providers create-oidc opwip-a-provider \
     --workload-identity-pool=opwip-a \
-    --project=earnest-keep-443512-e1 \
+    --project=vital-cathode-444415-s3 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
 gcloud iam workload-identity-pools providers create-oidc opwip-b-provider \
     --workload-identity-pool=opwip-b \
-    --project=earnest-keep-443512-e1 \
+    --project=vital-cathode-444415-s3 \
     --location="global" \
     --issuer-uri="https://accounts.google.com" \
     --attribute-mapping="google.subject=assertion.sub"
@@ -133,7 +133,7 @@ gcloud artifacts repositories create odp-fed-compute \
   --location=europe-west2
 
 export GOOGLE_APPLICATION_CREDENTIALS=/home/danym/.config/gcloud/application_default_credentials.json
-export GOOGLE_CLOUD_PROJECT=earnest-keep-443512-e1
+export GOOGLE_CLOUD_PROJECT=vital-cathode-444415-s3
 ```
 
 ## Questions
@@ -154,13 +154,13 @@ export GOOGLE_CLOUD_PROJECT=earnest-keep-443512-e1
 ### Resource only output
 Outputs:
 
-aggregated_gradient_bucket_name = "fcp-dny70-a-0"
-aggregator_subscription_name = "aggregator-dny70-subscription"
-aggregator_topic_name = "aggregator-dny70-topic"
-client_gradient_bucket_name = "fcp-dny70-g-0"
-model_bucket_name = "fcp-dny70-m-0"
-model_updater_subscription_name = "model-updater-dny70-subscription"
-model_updater_topic_name = "model-updater-dny70-topic"
-spanner_database_name = "fcp-task-db-dny70"
-spanner_instance_name = "fcp-task-dny70"
-spanner_lock_database_name = "fcp-lock-db-dny70"
+aggregated_gradient_bucket_name = "fcp-dny71-a-0"
+aggregator_subscription_name = "aggregator-dny71-subscription"
+aggregator_topic_name = "aggregator-dny71-topic"
+client_gradient_bucket_name = "fcp-dny71-g-0"
+model_bucket_name = "fcp-dny71-m-0"
+model_updater_subscription_name = "model-updater-dny71-subscription"
+model_updater_topic_name = "model-updater-dny71-topic"
+spanner_database_name = "fcp-task-db-dny71"
+spanner_instance_name = "fcp-task-dny71"
+spanner_lock_database_name = "fcp-lock-db-dny71"

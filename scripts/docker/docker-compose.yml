@@ -14,7 +14,7 @@
 
 services:
   aggregator:
-    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/aggregator_image:latest
+    image: europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/aggregator_image:latest
     ports:
     - '8085:8082'
     expose:
@@ -24,12 +24,12 @@ services:
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       # environment and project_id are used to reference GCP resources such as Spanner, PubSub, and SecretsManager.
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
-        --environment 'dny70'"
+        --environment 'dny71'"
       ENCRYPTION_OPTS: "--public_key_service_base_url '<url>'"
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   collector:
-    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/collector_image:latest
+    image: europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/collector_image:latest
     ports:
     - '8084:8082'
     expose:
@@ -38,12 +38,12 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
-      --environment 'dny70'"
+      --environment 'dny71'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   modelupdater:
-    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/model_updater_image:latest
+    image: europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/model_updater_image:latest
     ports:
     - '8086:8082'
     expose:
@@ -52,11 +52,11 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
-      --environment 'dny70'"
+      --environment 'dny71'"
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskassignment:
-    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_assignment_image:latest
+    image: europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_assignment_image:latest
     ports:
     - '8083:8083'
     expose:
@@ -65,12 +65,12 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}'
-      --environment 'dny70'"
+      --environment 'dny71'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskmanagement:
-    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_management_image:latest
+    image: europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_management_image:latest
     ports:
     - '8082:8082'
     expose:
@@ -78,12 +78,12 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'dny70'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'dny71'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskscheduler:
-    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_scheduler_image:latest
+    image: europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_scheduler_image:latest
     ports:
       - '8087:8082'
     expose:
@@ -91,12 +91,12 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/adc.json
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT}
-      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'dny70'"
+      FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' --environment 'dny71'"
     user: root
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   taskbuilder:
-    image: europe-west2-docker.pkg.dev/earnest-keep-443512-e1/odp-fed-compute/task_builder_image:latest
+    image: europe-west2-docker.pkg.dev/vital-cathode-444415-s3/odp-fed-compute/task_builder_image:latest
     expose:
       - '5000'
     environment:
