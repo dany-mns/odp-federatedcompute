@@ -377,6 +377,7 @@ public final class EndToEndTest {
               basicTask.getPopulationName(), basicTask.getTaskId(), i));
 
       if (i == basicTask.getTotalIteration()) {
+        System.out.println("Iteration: " + i + " is the final iteration.");
         break;
       }
       System.out.println(
@@ -388,8 +389,10 @@ public final class EndToEndTest {
     System.out.println("Waiting for task to be complete...");
     Task updatedTask = Task.getDefaultInstance();
     for (int i = 0; i <= MAX_RUN; i++) {
+      System.out.println("Run update task " + i + "/" + MAX_RUN);
       updatedTask = partner.getTask(basicTask.getPopulationName(), basicTask.getTaskId());
       if (updatedTask.getStatus() == TaskStatus.Enum.OPEN) {
+        System.out.println("Task still open ... Wait");
         Thread.sleep(WAIT_INTERVAL_LONG * 2);
       }
     }

@@ -47,6 +47,11 @@ For shuffler/terraform/gcp/environments/dev2/dev.auto.tfvars
 Enable the Google Cloud KMS API in your project:
 
 ```shell
+gcloud artifacts repositories create odp-fed-compute \
+    --repository-format=docker \
+    --location=europe-west2 \
+    --description="Artifact registry for federated compute"
+
 gcloud config set project vital-cathode-444415-s3
 # Create a key ring in the region where your infrastructure is located
 gcloud kms keyrings create demo-key-ring --location europe-west2
@@ -131,6 +136,13 @@ gcloud auth configure-docker europe-west2-docker.pkg.dev
 gcloud artifacts repositories create odp-fed-compute \
   --repository-format=docker \
   --location=europe-west2
+
+gcloud spanner databases ddl update fcp-task-db-dny71 --instance=fcp-task-dny71 --ddl-file=shuffler/spanner/task_database.sdl
+
+gcloud spanner databases ddl update fcp-metric-db-dny71 --instance=fcp-metric-dny71 --ddl-file=shuffler/spanner/metrics_database.sdl
+
+bazel run java/src/it/java/com/google/ondevicepersonalization/federatedcompute/endtoendtests:end_to_end_test -- --server http://localhost:8080 --public_key_url 'https://publickeyservice-ca-staging.rb-odp-key-host-dev.com/v1alpha/publicKeys' --task_management_server http://localhost:8080
+
 
 export GOOGLE_APPLICATION_CREDENTIALS=/home/danym/.config/gcloud/application_default_credentials.json
 export GOOGLE_CLOUD_PROJECT=vital-cathode-444415-s3

@@ -25,7 +25,7 @@ services:
       # environment and project_id are used to reference GCP resources such as Spanner, PubSub, and SecretsManager.
       FCP_OPTS: "--project_id '${GOOGLE_CLOUD_PROJECT}' 
         --environment 'dny71'"
-      ENCRYPTION_OPTS: "--public_key_service_base_url '<url>'"
+      ENCRYPTION_OPTS: "--public_key_service_base_url 'https://publickeyservice-ca-staging.rb-odp-key-host-dev.com/v1alpha/publicKeys'"
     volumes:
     - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/adc.json:ro
   collector:

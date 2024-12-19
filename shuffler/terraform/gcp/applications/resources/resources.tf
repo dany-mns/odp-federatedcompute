@@ -322,12 +322,12 @@ module "model_cdn_signing_key_name" {
   depends_on = [module.model_cdn_signing_key_value_a, module.model_cdn_signing_key_value_b]
 }
 
-module "model_cdn_endpoint" {
-  source          = "../../modules/parameters"
-  environment     = var.environment
-  parameter_name  = "MODEL_CDN_ENDPOINT"
-  parameter_value = module.model_cdn.cdn_domain
-}
+# module "model_cdn_endpoint" {
+#   source          = "../../modules/parameters"
+#   environment     = var.environment
+#   parameter_name  = "MODEL_CDN_ENDPOINT"
+#   parameter_value = module.model_cdn.cdn_domain
+# }
 
 module "aggregation_batch_failure_threshold" {
   count           = var.aggregation_batch_failure_threshold != null ? 1 : 0
